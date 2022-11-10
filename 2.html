@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+<script>
+  "use strict";
+
+  // Здесь пишем решение, данный комментарий необходимо стереть.
+  // ES5:
+  function getDateTime() {
+    const today = new Date();
+    return today.toLocaleString() + ':' + today.getMilliseconds();
+  }
+
+  function PostES5(author, text) {
+    this.author = author;
+    this.text = text;
+    this.date = getDateTime();
+  }
+
+  PostES5.prototype.edit = function(text) {
+    this.text = text;
+    const today = new Date();
+    this.date = getDateTime();
+  };
+
+  function AttachedPostES5(author, text) {
+    PostES5.call(this, author, text);
+    this.highlighted = false;
+  }
+
+  AttachedPostES5.prototype = Object.create(PostES5.prototype);
+  AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+  AttachedPostES5.prototype.makeTextHighlighted = function () {
+    this.highlighted = true;
+    this.date = getDateTime();
+  };
+
+  let post1 = new PostES5('Ivan Pupkin 1','hello world, post1');
+  let post2 = new PostES5('Ivan Pupkin 2','hello world, post2');
+  let post3 = new PostES5('Ivan Pupkin 3','hello world, post3');
+
+  console.log('ES5');
+  console.log(`${post3.author} | ${post3.date}: ${post3.text}`);
+  setTimeout(() => {
+    post3.edit('updated!');
+    console.log(`${post3.author} | ${post3.date}: ${post3.text}`);
+    console.log(post3);
+    }, 1000);
+
+  let post4 = new AttachedPostES5('Ivan Pupkin4','hello world, post4');
+  let post5 = new AttachedPostES5('Ivan Pupkin5','hello world, post5');
+  let post6 = new AttachedPostES5('Ivan Pupkin6','hello world, post6');
+
+  console.log(`${post6.author} | ${post6.date} | ${post6.text} | ${post6.highlighted}`);
+
+  console.log(`edit post: ${post6.text}`);
+  post6.edit('updated!');
+  console.log(`result -> ${post6.author} | ${post6.date} | ${post6.text} | ${post6.highlighted}`);
+
+  console.log(`make post highlighted: ${post6.text}`);
+  post6.makeTextHighlighted();
+  console.log(`result -> ${post6.author} | ${post6.date} | ${post6.text} | ${post6.highlighted}`);
+
+  console.log(post6);
+
+
+  // ES6:
+  class PostES6 {
+    constructor (author, text) {
+      this.author = author;
+      this.text = text;
+      this.date = getDateTime();
+    }
+
+    edit(text) {
+      this.text = text;
+      this.date = getDateTime();
+    }
+  }
+
+  class AttachedPostES6 extends PostES6 {
+    constructor(author, text, date) {
+      super(author, text, date);
+      this.highlighted = false;
+    }
+
+    makeTextHighlighted() {
+      this.highlighted = true;
+      this.date = getDateTime();
+    }
+  }
+
+  let post7 = new PostES5('Ivan Pupkin 7','hello world, post7');
+  let post8 = new PostES5('Ivan Pupkin 8','hello world, post8');
+  let post9 = new PostES5('Ivan Pupkin 9','hello world, post9');
+
+  console.log('');
+  console.log('ES6');
+  console.log(`${post9.author} | ${post9.date}: ${post9.text}`);
+  setTimeout(() => {
+    post9.edit('updated!');
+    console.log(`${post9.author} | ${post9.date}: ${post9.text}`);
+    console.log(post9);
+    }, 1500);
+
+  let post10 = new AttachedPostES5('Ivan Pupkin10','hello world, post10');
+  let post11 = new AttachedPostES5('Ivan Pupkin11','hello world, post11');
+  let post12 = new AttachedPostES5('Ivan Pupkin12','hello world, post12');
+
+  console.log(`${post11.author} | ${post11.date} | ${post11.text} | ${post11.highlighted}`);
+
+  console.log(`edit post: ${post11.text}`);
+  post11.edit('updated!');
+  console.log(`result -> ${post11.author} | ${post11.date} | ${post11.text} | ${post11.highlighted}`);
+
+  console.log(`make post highlighted: ${post11.text}`);
+  post11.makeTextHighlighted();
+  console.log(`result -> ${post11.author} | ${post11.date} | ${post11.text} | ${post11.highlighted}`);
+
+  console.log(post11);
+
+</script>
+</body>
+</html>
