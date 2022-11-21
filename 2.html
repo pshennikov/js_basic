@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+<p class="dropdown">Привет :)</p>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+
+<script>
+  "use strict";
+
+  /*
+  1. Ко всем элементам, имеющим класс "dropdown-item" добавить еще один класс
+  "super-dropdown", необходимо использовать методы forEach и querySelectorAll и
+  свойство classList у элементов.
+   */
+
+  console.log('1:');
+
+  const dropdownItem = document.querySelectorAll('.dropdown-item');
+  dropdownItem.forEach((element) => element.classList.add('super-dropdown'));
+
+  console.log(dropdownItem);
+
+
+  /*
+  2. У элемента с классом btn необходимо убрать класс "btn-secondary", если он
+  присутствует у этого элемента, либо добавить, если такого класса у элемента
+  не было.
+   */
+
+  console.log('2:');
+
+  const btn = document.querySelectorAll('.btn');
+  btn.forEach((element) => element.classList.toggle('btn-secondary'));
+
+  console.log(document);
+
+
+
+
+  /*
+  3. Необходимо удалить класс "dropdown-menu" у элемента, у которого
+  присутствует класс "menu".
+   */
+
+  console.log('3:');
+
+  const menu = document.querySelectorAll('.menu');
+  menu.forEach((element) => element.classList.remove('dropdown-menu'));
+
+  console.log(document);
+
+
+  /*
+  4. Используя метод insertAdjacentHTML добавьте после div'a с классом
+  "dropdown" следующую разметку:
+    <a href="#">link</a>
+   */
+
+  console.log('4:');
+
+  const div = document.querySelectorAll('div');
+  div.forEach((element) => {
+    if (element.classList.contains('dropdown')) {
+      element.insertAdjacentHTML('afterend','<a href="#">link</a>');
+    }
+  });
+
+  console.log(document);  
+
+
+  /*
+  5. У элемента с id "dropdownMenuButton" замените id на "superDropdown".
+   */
+
+  console.log('5:');
+
+  const dropDownMenuButton = document.getElementById('dropdownMenuButton');
+  dropDownMenuButton.id = 'superDropdown';
+  
+  console.log(dropDownMenuButton)
+
+
+  /*
+  6. Добавьте атрибут data-dd со значением 3 элементу у которого существует
+  атрибут "aria-labelledby" равный "dropdownMenuButton" используя dataset.
+   */
+
+  console.log('6:');
+
+  const dropDownMenuButtonElement = document.querySelector('[aria-labelledby="dropdownMenuButton"]');
+  dropDownMenuButtonElement.dataset.dd = '1960-10-03';
+
+  console.log(document);
+    
+  /*
+  7. Удалите атрибут type у элемента с классом "dropdown-toggle".
+   */
+
+  console.log('7:');
+
+  const dropDownToggleElements = document.getElementsByClassName('dropdown-toggle');
+
+  for (let i = 0; i < dropDownToggleElements.length; i++){
+    dropDownToggleElements[i].removeAttribute('type');
+    console.log(dropDownToggleElements[i]);
+  };
+    
+  /*
+  8. Выведите в консоль все имеющиеся атрибуты и их значения тега у которого
+  есть все два класса btn и dropdown-toggle.
+  Вывод каждого атрибута и значений должен выглядеть следующим образом (пример):
+  Атрибут "class" содержит значение "btn btn-secondary dropdown-toggle"
+   */
+
+  console.log('8:');
+
+  const attributes = document.querySelectorAll('.btn.dropdown-toggle');
+  attributes.forEach((element) => console.log(`Атрибут "class" содержит значение "${element.className}"`));
+
+
+</script>
+</body>
+</html>
