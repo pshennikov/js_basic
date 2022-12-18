@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+  <style>
+    .product {
+      width: 200px;
+      padding: 10px;
+      float: left;
+      margin-right: 30px;
+      box-shadow: 0 0 4px black;
+    }
+  </style>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+<div class="product">
+  <div class="productName">Товар 1</div>
+  <img src="http://lorempixel.com/200/300/food/1/" alt="">
+  <button>В корзину</button>
+</div>
+<div class="product">
+  <div class="productName">Товар 2</div>
+  <img src="http://lorempixel.com/200/300/food/2/" alt="">
+  <button>В корзину</button>
+</div>
+<div class="product">
+  <div class="productName">Товар 3</div>
+  <img src="http://lorempixel.com/200/300/food/3/" alt="">
+  <button>В корзину</button>
+</div>
+
+<script>
+  "use strict";
+
+  /*
+  1. Установите всем элементам с классом "productName" размер шрифта 24px.
+  */
+
+  console.log('task 1:');  
+  let productNameElements = document.getElementsByClassName('productName');
+
+  for(let i = 0; i < productNameElements.length; i++) {
+    console.log(productNameElements[i].style.fontSize = "24px");
+  }
+
+  console.log(productNameElements);
+
+  
+  /*
+  2. Установите всем элементам с классом "product" внешний отступ справа 50px.
+  */
+
+  console.log('task 2:');  
+  let productElements = document.getElementsByClassName('product');
+
+  for (let i = 0; i < productElements.length; i++) {
+    console.log(productElements[i].style.marginRight = "50px");
+  }
+
+  console.log(productElements);
+
+
+  /*
+  3. При клике на кнопку "В корзину" название кнопки должно поменяться на
+  "Добавлено" и кнопка должна стать неактивной.
+  */
+
+  console.log('task 3:');
+  
+  const buttons = document.querySelectorAll('button')
+
+  let onButtonClick = function(btn) {
+    console.log('beep')
+    btn.textContent = 'Добавлено';
+    btn.disabled = true;
+  }
+
+  buttons.forEach(button => {
+    // button.addEventListener('click', event => {
+    //   onButtonClick(button);
+    // }, {once: true});
+
+    button.addEventListener('click', event => {
+      onButtonClick(button);
+    }); 
+  });
+
+  console.log(buttons);
+
+
+  /*
+  4. Создайте полную (глубокую) копию элемента с классом product, измените в
+  этой копии путь до картинки на:
+  http://lorempixel.com/200/300/food/4/
+  Поставьте название товара в данной копии "Товар 4" и замените последний
+  отображенный товар на странице на созданную копию. У данной копии также
+  должен правильно работать код из 3-го задания.
+  */
+
+  console.log('task 4:');
+
+  // let products = document.getElementsByClassName('product');
+  // let product = document.getElementById("product");
+  // let productCopy = JSON.parse(JSON.stringify(product));
+
+  const product = document.querySelector('.product');
+  const products = document.querySelectorAll('.product');
+
+  const productCopy = product.cloneNode(true);
+  console.log('productCopy:', productCopy);
+
+  const productCopyDiv = productCopy.querySelector('div');
+  console.log('productCopyDiv:', productCopyDiv);
+  productCopyDiv.textContent  = 'Товар 4';
+
+  const productCopyImg = productCopy.querySelector('img');
+  console.log('productCopyImg:', productCopyImg);
+  productCopyImg.src = 'http://lorempixel.com/200/300/food/4/';
+
+  console.log('products:', products);
+
+  products[products.length - 1].parentNode.replaceChild(productCopy, products[products.length - 1]);
+
+
+  /*
+  5. По истечению 2 секунд с момента открытия страницы первый товар должен быть
+  удален из html.
+  */
+
+  setTimeout(function() { 
+    console.log('timeout');
+    products[0].remove();
+  }, 2000);
+
+
+</script>
+</body>
+</html>
