@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+  <style>
+    .message {
+      width: 150px;
+      padding: 20px;
+      background: lightgoldenrodyellow;
+      border: 1px solid orange;
+      visibility: hidden;
+    }
+    .error {
+      border: 0.3rem solid red;
+    }
+  </style>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+<input id="from" type="text">
+В инпуте написано: <span></span>
+
+<br>
+
+<button class="messageBtn">Показать блок</button>
+<div class="message">
+  Привет :)
+</div>
+
+<br>
+
+<form>
+  <label>
+    Первый инпут:
+    <input class="form-control" type="text">
+  </label>
+  <br>
+  <br>
+  <label>
+    Второй инпут:
+    <select class="form-control">
+      <option value=""></option>
+      <option value="1">Один</option>
+      <option value="2">Два</option>
+    </select>
+  </label>
+  <br>
+  <br>
+  <button>Отправить</button>
+</form>
+
+<script>
+  "use strict";
+
+  /*
+  1. При изменении значения в input с id="from", значение содержащееся в нем
+  должно моментально отображаться в span. То есть при печати в input'е тег span
+  также должен меняться.
+  */
+  
+  console.log('task 01:');
+
+  // let n = 0;
+  let inputElement = document.getElementById('from');
+  let spanElement = document.querySelector('span');
+  inputElement.addEventListener('input', (event) => {
+    // console.log('write')
+    // console.log(inputElement.value);
+    // spanElement.textContent = n++;
+    spanElement.textContent = inputElement.value;
+    console.log(inputElement.value);
+  });
+
+  console.log(inputElement);
+
+
+  /*
+  2. При клике на кнопку с классом messageBtn необходимо элементу с классом
+  message:
+  1) добавить два класса: animate__animated и animate__fadeInLeftBig
+  2) поставить данному элементу стиль visibility в значение 'visible'.
+  */
+
+  console.log('task 02:');
+
+  let btn = document.querySelector('.messageBtn');
+  let messageElement = document.querySelector('.message');
+
+  btn.addEventListener('click', (event) => {
+    // console.log('click');
+    messageElement.classList.add("animate__animated", "animate__fadeInLeftBig");
+    messageElement.style.visibility = 'visible';
+  });
+
+
+  /*
+  3. Необходимо при отправке формы проверить, заполнены ли все поля в этой
+  форме. Если какое-либо поле не заполнено, форма не должна отправляться, также
+  должны быть подсвечены незаполненные поля (необходимо поставить класс error
+  незаполненным полям).
+  Как только пользователь начинает заполнять какое-либо поле, необходимо,
+  при вводе в данное поле, произвести проверку:
+  Если поле пустое, необходимо данное поле подсветить (поставить класс error
+  данному полю).
+  Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
+  */
+
+  console.log('task 03:');
+
+  let formControl = document.querySelectorAll('.form-control');
+  console.log('formControl: ', formControl);  
+
+  for (let i = 0; i < formControl.length; i++ ) {
+    console.log(formControl[i]);
+
+    formControl[i].addEventListener('input', e => {
+      console.log('formControl element is input', formControl[i]);
+      formControl[i].classList.remove("error");
+    });
+
+    formControl[i].addEventListener('focus', e => {
+      console.log('formControl element is focus', formControl[i]);
+      if (formControl[i].value == '') {
+        formControl[i].classList.add("error");
+      }
+    });
+  };
+
+  let formElement = document.querySelector('form');
+  console.log('formElement: ', formElement); 
+  let btnSendForm = formElement.querySelector('button');
+  console.log('btnSendForm: ', btnSendForm); 
+
+  btnSendForm.addEventListener('click', event => {
+    console.log('click to btnSendForm');
+
+    let emptyField = false;
+
+    for (let i = 0; i < formControl.length; i++) {
+
+      console.log('value: ', formControl[i].value)
+
+      if(formControl[i].value == "") {
+        console.log('value is empty')
+        formControl[i].classList.add("error");
+        emptyField = true;
+      }
+
+      console.log('emptyField:', emptyField);
+    };
+
+    if (emptyField == true) {
+      event.preventDefault();
+    } else {
+      console.log('button is pressed with standard functionality');
+    }
+  });
+
+</script>
+</body>
+</html>
